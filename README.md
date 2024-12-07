@@ -8,3 +8,14 @@ Whether you are just starting with databases or looking to refine your skills, t
    - ALTER ✏️
    - DROP 🗑️
    - TRUNCATE 🚮
+2. **Data Query Language (DQL)**
+   - SELECT 🔍
+3. **Data Manipulation Language (DML)**
+   - INSERT ➕
+   - UPDATE ✏️
+   - DELETE ➖
+4. **Transaction Control Language (TCL)**
+   - COMMIT 💾
+   - ROLLBACK ⏪
+   - SAVEPOINT 📍
+5. **Examples**
