@@ -19,3 +19,57 @@ Whether you are just starting with databases or looking to refine your skills, t
    - ROLLBACK ⏪
    - SAVEPOINT 📍
 5. **Examples**
+
+### Data Definition Language (DDL) 🛠️
+
+DDL statements are used to define, alter, and manage database schema.
+
+#### CREATE 🛠️
+
+Used to create databases, tables, indexes, views, etc.
+
+```sql
+-- Create a new database
+CREATE DATABASE mydatabase;
+
+-- Create a new table
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    department VARCHAR(50)
+);
+```
+
+#### ALTER ✏️
+
+Used to modify the structure of an existing database object.
+
+```sql
+-- Add a new column to an existing table
+ALTER TABLE employees ADD salary DECIMAL(10, 2);
+
+-- Modify the datatype of a column
+ALTER TABLE employees MODIFY COLUMN age SMALLINT;
+```
+
+#### DROP 🗑️
+
+Used to delete databases, tables, indexes, views, etc.
+
+```sql
+-- Drop a table
+DROP TABLE employees;
+
+-- Drop a database
+DROP DATABASE mydatabase;
+```
+
+#### TRUNCATE 🚮
+
+Used to delete all rows from a table without deleting the table itself.
+
+```sql
+-- Truncate a table
+TRUNCATE TABLE employees;
+```
