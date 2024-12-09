@@ -67,6 +67,22 @@ DROP DATABASE mydatabase;
 
 #### TRUNCATE 🚮
 
+### Data Query Language (DQL) 🔍
+
+DQL is used to query the database and retrieve data.
+
+#### SELECT 🔍
+
+Used to retrieve data from one or more tables.
+
+```sql
+-- Select specific columns
+SELECT name, department FROM employees WHERE age > 30;
+
+-- Select all columns
+SELECT * FROM employees;
+```
+
 Used to delete all rows from a table without deleting the table itself.
 
 ```sql
