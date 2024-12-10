@@ -67,6 +67,14 @@ DROP DATABASE mydatabase;
 
 #### TRUNCATE 🚮
 
+Used to delete all rows from a table without deleting the table itself.
+
+```sql
+-- Truncate a table
+TRUNCATE TABLE employees;
+```
+
+
 ### Data Query Language (DQL) 🔍
 
 DQL is used to query the database and retrieve data.
@@ -83,9 +91,44 @@ SELECT name, department FROM employees WHERE age > 30;
 SELECT * FROM employees;
 ```
 
-Used to delete all rows from a table without deleting the table itself.
+### Data Manipulation Language (DML) ➕
+
+DML statements are used for managing data within schema objects.
+
+#### INSERT ➕
+
+Used to insert new records into a table.
 
 ```sql
--- Truncate a table
-TRUNCATE TABLE employees;
+-- Insert a single row
+INSERT INTO employees (id, name, age, department) VALUES (1, 'John Doe', 30, 'HR');
+
+-- Insert multiple rows
+INSERT INTO employees (id, name, age, department) VALUES
+(2, 'Jane Smith', 25, 'Finance'),
+(3, 'Mike Brown', 35, 'IT');
+```
+
+#### UPDATE ✏️
+
+Used to update existing records within a table.
+
+```sql
+-- Update a single column
+UPDATE employees SET age = 31 WHERE id = 1;
+
+-- Update multiple columns
+UPDATE employees SET age = 32, department = 'Management' WHERE id = 1;
+```
+
+#### DELETE ➖
+
+Used to delete records from a table.
+
+```sql
+-- Delete specific records
+DELETE FROM employees WHERE age < 30;
+
+-- Delete all records
+DELETE FROM employees;
 ```
