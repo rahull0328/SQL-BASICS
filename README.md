@@ -1,4 +1,7 @@
 # 🌟 Database Management Systems (DBMS) - BASICS 🌟
+
+<img src="https://brainalyst.in/wp-content/uploads/2022/08/Database-Management-System.jpg" />
+
 ### Introduction 📚
 Whether you are just starting with databases or looking to refine your skills, this repository offers comprehensive insights into designing, querying, and managing relational databases. Explore the core concepts through practical examples and detailed explanations tailored for learners and professionals alike.
 ### Contents 📋
