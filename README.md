@@ -1,9 +1,12 @@
-# 🌟 Database Management Systems (DBMS) - BASICS 🌟
+# 🌟 Database Management Systems - BASICS 🌟
 
 <img src="https://brainalyst.in/wp-content/uploads/2022/08/Database-Management-System.jpg" />
 
 ### Introduction 📚
 Whether you are just starting with databases or looking to refine your skills, this repository offers comprehensive insights into designing, querying, and managing relational databases. Explore the core concepts through practical examples and detailed explanations tailored for learners and professionals alike.
+
+---
+
 ### Contents 📋
 
 1. **Data Definition Language (DDL)**
@@ -22,6 +25,8 @@ Whether you are just starting with databases or looking to refine your skills, t
    - ROLLBACK ⏪
    - SAVEPOINT 📍
 5. **Examples**
+
+---
 
 ### Data Definition Language (DDL) 🛠️
 
@@ -76,7 +81,7 @@ Used to delete all rows from a table without deleting the table itself.
 -- Truncate a table
 TRUNCATE TABLE employees;
 ```
-
+---
 
 ### Data Query Language (DQL) 🔍
 
@@ -93,6 +98,8 @@ SELECT name, department FROM employees WHERE age > 30;
 -- Select all columns
 SELECT * FROM employees;
 ```
+
+---
 
 ### Data Manipulation Language (DML) ➕
 
@@ -135,6 +142,8 @@ DELETE FROM employees WHERE age < 30;
 -- Delete all records
 DELETE FROM employees;
 ```
+---
+
 ### Transaction Control Language (TCL) 💾
 
 TCL statements are used to manage transactions in the database.
@@ -168,6 +177,7 @@ SAVEPOINT sp1;
 -- Rollback to the savepoint
 ROLLBACK TO SAVEPOINT sp1;
 ```
+---
 
 ### Examples 📋
 
