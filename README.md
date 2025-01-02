@@ -1,3 +1,9 @@
+# SQL Basics
+
+> *Click &#9733; if you like the project. Your contributions are heartily ♡ welcome.*
+
+<br/>
+
 ### Introduction 📚
 Whether you are just starting with databases or looking to refine your skills, this repository offers comprehensive insights into designing, querying, and managing relational databases. Explore the core concepts through practical examples and detailed explanations tailored for learners and professionals alike.
 
