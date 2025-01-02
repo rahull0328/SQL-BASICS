@@ -1,7 +1,3 @@
-# 🌟 Database Management Systems - BASICS 🌟
-
-<img src="https://brainalyst.in/wp-content/uploads/2022/08/Database-Management-System.jpg" />
-
 ### Introduction 📚
 Whether you are just starting with databases or looking to refine your skills, this repository offers comprehensive insights into designing, querying, and managing relational databases. Explore the core concepts through practical examples and detailed explanations tailored for learners and professionals alike.
 
@@ -9,6 +5,7 @@ Whether you are just starting with databases or looking to refine your skills, t
 
 ### Contents 📋
 
+* *[SQL Commands](sql-commands.md)*
 1. **Data Definition Language (DDL)**
    - CREATE 🛠️
    - ALTER ✏️
@@ -176,52 +173,4 @@ SAVEPOINT sp1;
 
 -- Rollback to the savepoint
 ROLLBACK TO SAVEPOINT sp1;
-```
----
-
-### Examples 📋
-
-#### Creating and Managing a Database 🛠️
-
-```sql
--- Create a new database
-CREATE DATABASE company_db;
-
--- Use the new database
-USE company_db;
-
--- Create an employees table
-CREATE TABLE employees (
-    id INT PRIMARY KEY,
-    name VARCHAR(50),
-    age INT,
-    department VARCHAR(50)
-);
-
--- Add a new column to the employees table
-ALTER TABLE employees ADD salary DECIMAL(10, 2);
-
--- Insert records into the employees table
-INSERT INTO employees (id, name, age, department, salary) VALUES
-(1, 'John Doe', 30, 'HR', 60000),
-(2, 'Jane Smith', 25, 'Finance', 55000),
-(3, 'Mike Brown', 35, 'IT', 70000);
-
--- Retrieve all employees
-SELECT * FROM employees;
-
--- Update an employee's age
-UPDATE employees SET age = 31 WHERE id = 1;
-
--- Delete specific employees
-DELETE FROM employees WHERE age < 30;
-
--- Truncate the table
-TRUNCATE TABLE employees;
-
--- Drop the table
-DROP TABLE employees;
-
--- Drop the database
-DROP DATABASE company_db;
 ```
