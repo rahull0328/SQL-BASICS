@@ -294,3 +294,175 @@ NOTE: Logical Data Independence is more difficult to achieve.
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
+
+## Q. Why E-R models are used?
+
+E-R model stands for entity-relationship model and it is used to represent a model with their relationships. This is an object oriented approach and it is based on real world that consists of objects which are called entities and relationship between them. Entities are further used inside the database in the form of attributes.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What do you understand by cardinality and why it is used?
+
+- Cardinality is important and used to arrange the data inside the database. 
+- It is related to the design part and need to be properly used in database. 
+- It is used in E-R diagrams and used to show the relationship between entities/tables. 
+- It has many forms like the basic is one to one, which associate one entity with another.
+- Second is one to many: which relates one entity with many entities in a table.
+- Third is many to many M: N that allows many entities to be related to many more.
+- Last is many to one that allows the many entities to be associated with one entity.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is DDL, DML and DCL?
+
+SQL commands can be divided in three large subgroups.
+
+1) DDL: The SQL commands which deals with database schemas and information of how the data will be generated in database are classified as Data Definition Language.
+-For example: CREATE TABLE or ALTER TABLE belongs to DDL.
+
+2) DML: The SQL commands which deals with data manipulation are classified as Data Manipulation Language.
+For example: SELECT, INSERT, etc.
+
+3) DCL: The SQL commands which deal with rights and permission over the database are classified as DCL.
+For example: GRANT, REVOKE
+
+## Q. How to prevent from database SQL Injection?
+
+SQL Injection is a code-based vulnerability that allows an attacker to read and access sensitive data from the database. Attackers can bypass security measures of applications and use SQL queries to modify, add, update, or delete records in a database.
+
+**Simple SQL Injection Example:**
+
+```sql
+SELECT id FROM users WHERE username='username' AND password='password' OR 1=1'
+```
+
+Because of the **OR 1=1** statement, the **WHERE** clause returns the first **id** from the **users** table no matter what the **username** and **password** are. The first user id in a database is very often the administrator. In this way, the attacker not only bypasses authentication but also gains administrator privileges.
+
+**Prevent SQL Injections:**
+
+**1. Continuous Scanning and Penetration Testing:**
+
+The automated web application scanner has been the best choice to point out vulnerabilities within the web applications for quite some time now. Now, with SQL injections getting smarter in exploiting logical flaws, website security professionals should explore manual testing with the help of a security vendor.
+
+They can authenticate user inputs against a set of rules for syntax, type, and length. It helps to audit application vulnerabilities discreetly so that you can patch the code before hackers exploit it to their advantage.
+
+**2. Restrict Privileges:**
+
+It is more of a database management function, but enforcing specific privileges to specific accounts helps prevent blind SQL injection attacks. Begin with no privileges account and move on to "read-only", "edit", "delete" and similar privilege levels.
+
+Minimizing privileges to the application will ensure that the attacker, who gets into the database through the application, cannot make unauthorized use of specific data.
+
+**3. Use Query Parameters:**
+
+Dynamic queries create a lot of troubles for security professionals. They have to deal with variable vulnerabilities in each application, which only gets graver with updates and changes. It is recommended that you prepare parameterized queries.
+
+These queries are simple, easy to write, and only pass when each parameter in SQL code is clearly defined. This way, your info is supplied with weapons to differentiate between code and information inputs.
+
+**4. Instant Protection:**
+
+A majority of organizations fail the problems like outdated code, scarcity of resources to test and make changes, no knowledge of application security, and frequent updates in the application. For these, web application protection is the best solution.
+
+A managed web application firewall can be deployed for immediate mitigation of such attacks. It contains custom policies to block any suspicious input and deny information breach instantly. This way, you do not have to manually look for loopholes and mend problems afterward.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What are the non standard string types available in SQL?
+
+Following are Non-Standard string types:
+
+| Name     | Max Length |
+|----------|------------|
+|TINYTEXT  |255 bytes   |
+|TEXT      |65,535 bytes|
+|MEDIUMTEXT|16 MB       |
+|LONGTEXT  |4GB         |
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 2. SQL Data Types
+
+<br/>
+
+## Q. What is difference between CHAR and VARCHAR in MySQL?
+
+Both of them are used for string type data. `char` has fixed length and if the inserted data is less than the defined length, required no. of blank spaces are added as padding. `varchar` has variable length and no padding is used to fill up the left out space. So technically, varchar will save space.
+
+## Q. What are the string datatypes in SQL?
+
+A list of data types used in MySQL database. This is based on MySQL 8.0.
+
+|Data Types      | Description                           |
+|----------------|---------------------------------------|
+|CHAR(Size)      |It is used to specify a fixed length string that can contain numbers, letters, and special characters. Its size can be 0 to 255 characters. Default is 1.|
+|VARCHAR(Size)   |It is used to specify a variable length string that can contain numbers, letters, and special characters. Its size can be from 0 to 65535 characters.|
+|BINARY(Size)    |It is equal to CHAR() but stores binary byte strings. Its size parameter specifies the column length in the bytes. Default is 1.|
+|VARBINARY(Size) |It is equal to VARCHAR() but stores binary byte strings. Its size parameter specifies the maximum column length in bytes.|
+|TEXT(Size)      |It holds a string that can contain a maximum length of 255 characters.|
+|TINYTEXT        |It holds a string with a maximum length of 255 characters.|
+|MEDIUMTEXT      |It holds a string with a maximum length of 16,777,215.|
+|LONGTEXT        |It holds a string with a maximum length of 4,294,967,295 characters.
+|ENUM(val1, val2, val3,...)|It is used when a string object having only one value, chosen from a list of possible values. It contains 65535 values in an ENUM list. If you insert a value that is not in the list, a blank value will be inserted.|
+|SET( val1,val2,val3,....)|It is used to specify a string that can have 0 or more values, chosen from a list of possible values. You can list up to 64 values at one time in a SET list.|
+|BLOB(size)    |It is used for BLOBs (Binary Large Objects). It can hold up to 65,535 bytes.|
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What are the differences between the BLOB and TEXT datatypes in MySQL?
+
+BLOB stands for Binary Large Objects and as its name suggests, it can be used for storing binary data while TEXT is used for storing large number of strings. BLOB can be used to store **binary data** that means we can store pictures, videos, sounds and programs also.
+
+BLOB values behave like byte string and BLOB does not have a character set. Therefore, comparison and sorting is fully dependent upon numeric values of bytes.
+
+TEXT values behave like non-binary string or character string. TEXT has a character set and the comparison/ sorting fully depends upon the collection of character set.
+
+**Creating a table with TEXT data type:**
+
+```sql
+mysql> create table TextTableDemo ( Address TEXT );
+
+mysql> DESC TextTableDemo;
+```
+
+**Creating a table with BLOB type:**
+
+```sql
+mysql> create table BlobTableDemo ( Images BLOB );
+
+mysql> desc BlobTableDemo;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 3. SQL Database
+
+<br/>
+
+#### Q. How to create a database using SQL?
+
+To create a database using SQL, you can use the `CREATE DATABASE` statement followed by the name of the database you want to create. Here's the basic syntax:
+
+```sql
+CREATE DATABASE database_name;
+```
+For example, if you want to create a database called "mydatabase", you can run the following SQL query:
+
+```sql
+CREATE DATABASE mydatabase;
+```
+Note that depending on your SQL environment, you may need to have appropriate permissions to create a database.
+
+## # 4. SQL Table
+
+<br/>
