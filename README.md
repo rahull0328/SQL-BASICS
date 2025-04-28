@@ -686,3 +686,138 @@ In this case, the duplicate row with Column1 = B has been retained in the final 
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
+
+## Q. What is difference between Correlated subquery and nested subquery?
+
+**1. Correlated subqueries:**
+
+Correlated subqueries are used for row-by-row processing. Each subquery is executed once for every row of the outer query.
+
+A correlated subquery is evaluated once for each row processed by the parent statement. The parent statement can be a SELECT, UPDATE, or DELETE statement.
+
+**Example:**
+
+```sql
+--- Correlated Subquery
+SELECT e.EmpFirstName, e.Salary, e.DeptId 
+FROM Employee e 
+WHERE e.Salary = (SELECT max(Salary) FROM Employee ee WHERE ee.DeptId = e.DeptId)
+```
+
+**2. Nested subqueries:**
+
+A subquery can be nested inside other subqueries. SQL has an ability to nest queries within one another. A subquery is a SELECT statement that is nested within another SELECT statement and which return intermediate results. SQL executes innermost subquery first, then next level.
+
+**Example:**
+
+```sql
+--- Nested Subquery
+SELECT EmpFirstName, Salary, DeptId 
+FROM Employee 
+WHERE (DeptId, Salary) IN (SELECT DeptId, max(Salary) FROM Employee group by DeptId)
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. Differentiate UNION, MINUS, UNION ALL and INTERSECT?
+
+- INTERSECT - It will give all the distinct rows from both select queries.
+- MINUS - It will give distinct rows returned by the first query but not by the second query.
+- UNION - It will give all distinct rows selected by either first query or second query.
+- UNION ALL - It will give all rows returned by either query with all duplicate records.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. Explain SQL Operators?
+
+|Sl.No|Query                                           | Description                                       |
+|-----|------------------------------------------------|---------------------------------------------------|
+| 01. |SELECT c1 FROM t1 UNION [ALL] SELECT c1 FROM t2 |Select column c1 from a table named t1 and column c1 from a table named t2 and combine the rows from these two queries |
+| 02. |SELECT c1 FROM t1 INTERSECT SELECT c1 FROM t2 |Select column c1 from a table named t1 and column c1 from a table named t2 and return the intersection of two queries |
+| 03. |SELECT c1 FROM t1 MINUS SELECT c1 FROM t2 |Select column c1 from a table named t1 and column c1 from a table named t2 and subtract the 2nd result set from the 1st|
+| 04. |SELECT c1 FROM t WHERE c1 [NOT] LIKE pattern |Select column c1 from a table named t and query the rows using pattern matching % |
+| 05. |SELECT c1 FROM t WHERE c1 [NOT] in test_list |Select column c1 from a table name t and return the rows that are (or are not) in test_list |
+| 06. |SELECT c1 FROM t WHERE c1 BETWEEN min AND max |Select column c1 from a table named t and return the rows where c1 is between min and max|
+| 07. |SELECT c1 FROM t WHERE c1 IS [NOT] NULL|Select column c1 from a table named t and check if the values are NULL or not |
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+#### Q. Explain correlated query work?
+#### Q. What is the SQL CASE statement used for?
+
+*ToDo*
+
+## # 6. SQL Clause
+
+<br/>
+
+## Q. What is the difference between a HAVING CLAUSE and a WHERE CLAUSE?
+
+*ToDo*
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 7. SQL Order By
+
+<br/>
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 8. SQL Insert
+
+<br/>
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 9. SQL Update
+
+<br/>
+
+## Q. What are COMMIT and ROLLBACK in SQL?
+
+**COMMIT** statement is used to end the current transaction and once the COMMIT statement is exceucted the transaction will be permanent and undone.
+
+**Example:**:
+
+```sql
+BEGIN
+UPDATE EmpDetails SET EmpName = "Arpit" where Dept = "Developer"
+COMMIT;
+END;
+```
+
+**ROLLBACK** statement is used to end the current transaction and undone the changes which was made by that transaction.
+
+**Syntax:** ROLLBACK [TO] Savepoint_name;
+
+**Example:**:
+
+```sql
+BEGIN
+Statement1;
+SAVEPOINT mysavepoint;
+BEGIN
+Statement2;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK TO mysavepoint;
+Statement5;
+END;
+END;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
