@@ -821,3 +821,221 @@ END;
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
+
+## Q. Explain data modification commands in SQL?
+
+|Sl.No|Query            | Description                                       |
+|-----|-----------------|---------------------------------------------------|
+| 01. |INSERT INTO t(column_list) VALUES(value_list)|Insert one row into a table named t|
+| 02. |INSERT INTO t(column_list) VALUES (value_list), (value_list), … |Insert multiple rows into a table named t|
+| 03. |INSERT INTO t1(column_list) SELECT column_list FROM t2 |Insert rows from t2 into a table named t1|
+| 04. |UPDATE tSET c1 = new_value	|Update a new value in table t in the column c1 for all rows|
+| 05. |UPDATE tSET c1 = new_value, c2 = new_value WHERE condition|Update values in column c1 and c2 in table t that match the condition|
+| 06. |DELETE FROM t |Delete all the rows from a table named t|
+| 07. |DELETE FROM tWHERE condition	|Delete all rows from that a table named t that match a certain condition|
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 10. SQL Delete
+
+<br/>
+
+## Q. What is difference between Truncate and Delete in SQL?
+
+* TRUNCATE is a DDL (data definition language) command whereas DELETE is a DML (data manipulation language) command.
+* We can'\t execute a trigger with TRUNCATE whereas with DELETE command, a trigger can be executed.
+* We can use any condition in WHERE clause using DELETE but it is not possible with TRUNCATE.
+* If table is referenced by any foreign key constraints then TRUNCATE cannot work.
+* TRUNCATE is faster than DELETE, because when you use DELETE to delete the data, at that time it store the whole data in rollback space from where you can get the data back after deletion, whereas TRUNCATE will not store data in rollback space and will directly delete it. You can'\t get the deleted data back when you use TRUNCATE.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 11. SQL Keys
+
+<br/>
+
+## Q. What is the difference between primary and foreign key?
+
+* Primary key uniquely identify a relationship in a database, whereas foreign key is the key that is in other relation and it has been referenced from the primary key from other table.
+
+* Primary key remains one only for the table, whereas there can be more than one foreign key.
+
+* Primary key is unique and won'\t be shared between many tables, but foreign key will be shared between more than one table and will be used to tell the relationship between them.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+#### Q. What is a unique key?
+#### Q. What is a foreign key of a database?
+#### Q. What is a constraint in SQL?
+#### Q. How do I define constraints in SQL?
+#### Q. What is a candidate key?
+#### Q. What is the default index created on primary key in sql server?
+
+*ToDo*
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 12. SQL Join
+
+<br/>
+
+## Q. Explain JOIN Query in mySQL?
+
+A `JOIN` clause is used to combine rows from two or more tables, based on a related column between them.  
+Take `users` table and `orders` table for example.  
+
+**Users Table:**  
+
+|user_id|name|mobile|
+|---|---|---|
+|1|John|123|
+|2|Joe|124|
+
+**Orders Table:**  
+
+|order_id|user_id|total|created_at|
+|---|---|---|---|
+|1|1|500|2022-12-19 18:32:00|
+|2|1|800|2021-12-03 08:32:00|
+|3|2|50|2020-12-13 12:49:00|
+|4|1|80|2021-12-15 21:19:00|
+
+So to get the list of orders with names and mobile nos. for each order, we can join `orders` and `users` on the basis of `user_id`.  
+
+```sql
+SELECT 
+   o.*, 
+   u.name, 
+   u.mobile 
+FROM
+ ordes o 
+ JOIN users u ON o.user_id = u.user_id;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. Explain the different types of joins?
+
+Using Join in a query, we can retrieve referenced columns or rows from multiple tables.
+
+Following are different types of Joins:
+
+1. JOIN: Return details from tables if there is at least one matching row in both tables.
+2. LEFT JOIN: It will return all rows from the left table, even if there are no matching row in the right table.
+3. RIGHT JOIN: It will return all rows from the right table, even if there is no matching row in the left table.
+4. FULL JOIN: It will return rows when there is a match in either of tables.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What are Self Join and Cross Join?
+
+* When we want to join a table to itself then SELF JOIN is used.
+
+* We can give one or more aliases to eliminate the confusion.
+
+* A self join can be used as any type, if both the tables are same.
+
+* The simple example where we can use SELF JOIN is if in a company have a hierarchal reporting structure and an employee reports to another.
+
+* A cross join give the number of rows in the first table multiplied by the number of rows in second table.
+
+* The simple example where we can use CROSS JOIJ is if in an organization wants to combine every Employee with family table to see each Employee with each family member.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. How to query data from multiple tables?
+
+|Sl.No|Query            | Description                                       |
+|-----|-----------------|---------------------------------------------------|
+| 01. |SELECT c1, c2 FROM t1 INNER JOIN t2 on condition|Select columns c1 and c2 from a table named t1 and perform an inner join between t1 and t2  |
+| 02. |SELECT c1, c2 FROM t1 LEFT JOIN t2 on condition|Select columns c1 and c2 from a table named t1 and perform a left join between t1 and t2|
+| 03. |SELECT c1, c2 FROM t1 RIGHT JOIN t2 on condition|Select columns c1 and c2 from a table named t1 and perform a right join between t1 and t2|
+| 04. |SELECT c1, c2 FROM t1 FULL OUTER JOIN t2 on condition|Select columns c1 and c2 from a table named t1 and perform a full outer join between t1 and t2|
+| 05. |SELECT c1, c2 FROM t1 CROSS JOIN t2 |Select columns c1 and c2 from a table named t1 and produce a Cartesian product of rows in tables|
+| 06. |SELECT c1, c2 FROM t1, t2 |Select columns c1 and c2 from a table named t1 and produce a Cartesian product of rows in tables|
+| 07. |SELECT c1, c2 FROM t1 A INNER JOIN t2 B on condition |Select columns c1 and c2 from a table named t1 and joint it to itself using an INNER JOIN clause|
+
+## Q. What is full join in SQL?
+
+A **FULL JOIN** (or **FULL OUTER JOIN**) in SQL returns all records when there is a match in either the left or right table. It combines the results of both LEFT JOIN and RIGHT JOIN. When there is no match, NULL values are returned for columns from the table that lacks a match.
+
+Example:
+```sql
+SELECT *
+FROM TableA
+FULL JOIN TableB
+ON TableA.id = TableB.id;
+```
+
+## Q. What is an outer join in SQL?
+
+An **OUTER JOIN** in SQL refers to joins that return not only the rows with matching keys in both tables but also the rows with no corresponding key in one of the tables. There are three types of OUTER JOINS:
+- **LEFT OUTER JOIN**: Returns all rows from the left table, and the matched rows from the right table. If no match is found, NULL values are returned for columns from the right table.
+- **RIGHT OUTER JOIN**: Returns all rows from the right table, and the matched rows from the left table. If no match is found, NULL values are returned for columns from the left table.
+- **FULL OUTER JOIN**: Returns all rows when there is a match in either table, filling in NULLs when there are no matches.
+
+## Q. What is an inner join in SQL?
+
+An **INNER JOIN** in SQL returns only the rows where there is a match in both tables. It excludes rows that do not have matching values in both tables.
+
+Example:
+```sql
+SELECT *
+FROM TableA
+INNER JOIN TableB
+ON TableA.id = TableB.id;
+```
+
+## Q. What is left join in SQL Server?
+
+A **LEFT JOIN** (or **LEFT OUTER JOIN**) in SQL Server returns all records from the left table (TableA), and the matched records from the right table (TableB). If there is no match, the result is NULL on the side of the right table.
+
+Example:
+```sql
+SELECT *
+FROM TableA
+LEFT JOIN TableB
+ON TableA.id = TableB.id;
+```
+
+## Q. What is a right join in SQL Server?
+
+A **RIGHT JOIN** (or **RIGHT OUTER JOIN**) in SQL Server returns all records from the right table (TableB), and the matched records from the left table (TableA). If there is no match, the result is NULL on the side of the left table.
+
+Example:
+```sql
+SELECT *
+FROM TableA
+RIGHT JOIN TableB
+ON TableA.id = TableB.id;
+```
+
+## Q. What is the default join in SQL?
+
+The **default join** in SQL is the **INNER JOIN**. When you perform a JOIN without specifying the type, SQL assumes it to be an INNER JOIN, meaning it will only return rows where there is a match in both tables.
+
+Example:
+```sql
+SELECT *
+FROM TableA
+JOIN TableB
+ON TableA.id = TableB.id;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
