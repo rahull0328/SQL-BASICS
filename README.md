@@ -1039,3 +1039,299 @@ ON TableA.id = TableB.id;
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
+
+## # 13. SQL RegEx
+
+<br/>
+
+## Q. How to use REGEXP in SQL Query?
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 14. SQL Indexes
+
+<br/>
+
+## Q. What are indexes in a Database?
+
+Indexing is a way to optimize the performance of a database by minimizing the number of disk accesses required when a query is processed. It is a data structure technique which is used to quickly locate and access the data in a database.
+
+Indexes are created using a few database columns
+
+* The first column is the **Search key** that contains a copy of the primary key or candidate key of the table. These values are stored in sorted order so that the corresponding data can be accessed quickly.
+
+* The second column is the **Data Reference** or **Pointer** which contains a set of pointers holding the address of the disk block where that particular key value can be found.
+
+|Sl.No|Query                               | Description                                       |
+|-----|------------------------------------|---------------------------------------------------|
+| 01. |CREATE INDEX index_name ON t(c1, c2) |Create an index on columns c1 and c2 of the table t |
+| 02. |CREATE UNIQUE INDEX index_name ON t(c3, c4) |Create a unique index on columns c3 and c4 of the table t |
+| 03. |DROP INDEX index_name |Drop an index |
+
+**Example:**
+
+```sql
+-- Create Index
+CREATE INDEX <index_name> ON <table_name> (column1, column2, ...)
+
+-- Show Index
+SHOW INDEX FROM <table_name>;
+
+-- Alter Index
+ALTER TABLE <table_name> ADD INDEX(`column_name`);
+
+-- Drop Index
+DROP INDEX index_name ON <table_name>;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is an index represent in relational database model?
+
+Index is a way to provide quick access to the data and structure. It has indexes maintain and can be created to combine attributes on a relation. Index allows the queries to filter out the searches faster and matching data can be found earlier with simplicity.
+
+For example: It is same as the book where by using the index you can directly jump to a defined section. In relational database there is a provision to give multiple indexing techniques to optimize the data distribution.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+#### Q. What is the difference between Cluster and Non-Cluster Index?
+#### Q. How to create index in SQL Server?
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What are the types of indexes in sql?
+
+**1. Clustered Index:**
+
+Clustered index is the type of indexing that establishes a physical sorting order of rows. Clustered index is like Dictionary; in the dictionary, sorting order is alphabetical and there is no separate index page.
+
+**2. Non-clustered:**
+
+Non-Clustered index is an index structure separate from the data stored in a table that reorders one or more selected columns. The non-clustered index is created to improve the performance of frequently used queries not covered by a clustered index. It\'s like a textbook; the index page is created separately at the beginning of that book.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 15. SQL Wildcards
+
+<br/>
+
+## Q. What are the ways to use wildcards in sql?
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 16. SQL Date Format
+
+<br/>
+
+## Q. What is difference between timestamp and datetime in SQL?
+
+*ToDo*
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 17. SQL Transactions
+
+<br/>
+
+## Q. What is transactions in SQL?
+
+A SQL transaction is a grouping of one or more SQL statements that interact with a database. A transaction in its entirety can commit to a database as a single logical unit or rollback (become undone) as a single logical unit.
+
+In SQL, transactions are essential for maintaining database integrity. They are used to preserve integrity when multiple related operations are executed concurrently, or when multiple users interact with a database concurrently.
+
+**Properties of Transactions:**
+
+Transactions have the following four standard properties, usually referred to by the acronym ACID.
+
+* **Atomicity** − ensures that all operations within the work unit are completed successfully. Otherwise, the transaction is aborted at the point of failure and all the previous operations are rolled back to their former state.
+
+* **Consistency** − ensures that the database properly changes states upon a successfully committed transaction.
+
+* **Isolation** − enables transactions to operate independently of and transparent to each other.
+
+* **Durability** − ensures that the result or effect of a committed transaction persists in case of a system failure.
+
+**Transaction Control:**
+
+The following commands are used to control transactions.
+
+* **COMMIT** − to save the changes.
+
+* **ROLLBACK** − to roll back the changes.
+
+* **SAVEPOINT** − creates points within the groups of transactions in which to ROLLBACK.
+
+* **SET TRANSACTION** − Places a name on a transaction.
+
+**Example:**
+
+```sql
+-- Exmaple - 01
+
+CREATE TABLE widgetInventory (
+    id SERIAL,
+    description VARCHAR(255),
+    onhand INTEGER NOT NULL
+);
+
+CREATE TABLE widgetSales (
+    id SERIAL,
+    inv_id INTEGER,
+    quan INTEGER,
+    price INTEGER
+);
+
+INSERT INTO widgetInventory ( description, onhand ) VALUES  ( 'rock', 25 );
+INSERT INTO widgetInventory ( description, onhand ) VALUES  ( 'paper', 25 );
+INSERT INTO widgetInventory ( description, onhand ) VALUES  ( 'scissors', 25 );
+
+
+START TRANSACTION;
+INSERT INTO widgetSales ( inv_id, quan, price ) VALUES ( 1, 5, 500 );
+UPDATE widgetInventory SET onhand = ( onhand - 5 ) WHERE id = 1;
+COMMIT;
+
+SELECT * FROM widgetInventory;
+SELECT * FROM widgetSales;
+
+START TRANSACTION;
+INSERT INTO widgetInventory ( description, onhand ) VALUES ( 'toy', 25 );
+ROLLBACK;
+SELECT * FROM widgetInventory;
+SELECT * FROM widgetSales;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is the purpose of acid properties?
+
+* ACID stands for Atomicity, Consistency, Isolation and durability and it plays an important role in the database.
+
+* These properties allow the database to be more convenient to access and use. This allows data to be shared more safely in between the tables.
+
+* If these properties are not being implemented then the data will become inconsistent and inaccurate.
+
+* It helps in maintaining the accuracy of the data in the database.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is a NOLOCK?
+
+* NOLOCK is used to improve concurrency on a busy system.
+
+* On data read, no lock can be taken on SELECT statement.
+
+* When some other process is updating the data on the same time you are reading it is known as dirty read.
+
+* Read (Shared) locks are taken by SELECT Statements.
+
+* Simultaneous access of multiple SELECT statements is allowed in Shared lock but modification process is not allowed.
+
+* The result to your system is blocking.
+
+* Update will start on completion of all the reads.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is a WITH(NOLOCK)?
+
+- WITH(NOLOCK) is used to unlock the data which is locked by the transaction that is not yet committed. This command is used before SELECT statement.
+- When the transaction is committed or rolled back then there is no need to use NOLOCK function because the data is already released by the committed transaction.
+- Syntax: WITH(NOLOCK)
+
+**Example:**:
+
+```sql
+SELECT * FROM EmpDetails WITH(NOLOCK)
+WITH(NOLCOK) is similar as READ UNCOMMITTED.
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+#### Q. What are different transaction levels in SQL?
+#### Q. What are the different locks in SQL?
+
+*ToDo*
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 18. SQL Functions
+
+<br/>
+
+#### Q. What is a function in SQL Server?
+#### Q. What are the different types of functions in SQL Server?
+## Q. What are the reporting aggregate functions available in SQL?
+
+In database management, an aggregate function is a function where the values of multiples rows are grouped to form a single value.
+
+|Sl.No |Function   | Description                                       |
+|------|-----------|---------------------------------------------------|
+|  01. |COUNT	   |Return the number of rows in a certain table/view  |
+|  02. |SUM	   |Accumulate the values|
+|  03. |AVG	   |Returns the average for a group of values|
+|  04. |MIN	   |Returns the smallest value of the group|
+|  05. |MAX	   |Returns the largest value of the group|
+
+#### Q. What are aggregate and scalar functions?
+#### Q. What are all the Common SQL Function?
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 19. SQL View
+
+<br/>
+
+## Q. What is View in SQL?
+
+A view is a virtual table that is a result of a query. They can be extremely useful and are often used as a security mechanism, letting users access the data through the view, rather than letting them access the underlying base table:
+
+**Syntax:**
+
+```sql
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+**Example:**
+
+```sql
+--- Creating a View
+
+CREATE VIEW trackView AS
+  SELECT id, album_id, title, track_number, duration DIV 60 AS m, duration MOD 60 AS s
+    FROM track;
+SELECT * FROM trackView;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
