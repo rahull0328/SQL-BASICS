@@ -1335,3 +1335,281 @@ SELECT * FROM trackView;
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
+
+## # 20. SQL Triggers
+
+<br/>
+
+## Q. What are the triggers in SQL?
+
+A trigger is a stored procedure in database which automatically invokes whenever a special event in the database occurs. For example, a trigger can be invoked when a row is inserted into a specified table or when certain table columns are being updated.
+
+**Syntax:**
+
+```sql
+CREATE [OR REPLACE ] TRIGGER <trigger_name>
+{BEFORE | AFTER | INSTEAD OF }
+{INSERT [OR] | UPDATE [OR] | DELETE}
+ON <table_name>
+[FOR EACH ROW]
+WHEN (condition)
+[trigger_body]
+```
+
+**Example - 01:**
+
+```sql
+CREATE TRIGGER employee_name 
+after INSERT 
+on 
+employee 
+for each row 
+BEGIN 
+   UPDATE employee set full_name = first_name || ' ' || last_name;
+END;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+#### Q. Why and when to use a trigger?
+#### Q. What are the different types of triggers?
+#### Q. How many TRIGGERS are possible in MySql?
+
+*ToDo*
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## # 21. SQL Cursors
+
+<br/>
+
+## Q. What is a cursor?
+
+When we execute any SQL operations, SQL Server opens a work area in memory which is called Cursor. When it is required to perform the row by row operations which are not possible with the set-based operations then cursor is used.
+
+There are two of cursors:
+
+**1. Implicit Cursor:**
+
+Implicit Cursors are also known as Default Cursors of SQL SERVER. These Cursors are allocated by SQL SERVER when the user performs DML operations.
+
+**2. Explicit Cursor:**
+
+* When the programmer wants to perform the row by row operations for the result set containing more than one row, then he explicitly declare a cursor with a name.
+
+* They are managed by OPEN, FETCH and CLOSE.
+
+* %FOUND, %NOFOUND, %ROWCOUNT and %ISOPEN attributes are used in both types of cursors.
+
+**1. Declare Cursor Object:**
+
+**Syntax:**
+
+```sql
+--- DECLARE cursor_name CURSOR FOR SELECT * FROM table_name
+DECLARE s1 CURSOR FOR SELECT * FROM studDetails
+```
+
+**2. Open Cursor Connection:**
+
+```sql
+-- OPEN cursor_connection
+OPEN s1
+```
+
+**3. Fetch Data from cursor:**
+
+There are total 6 methods to access data from cursor.
+
+* **FIRST** - is used to fetch only the first row from cursor table.
+* **LAST** - is used to fetch only last row from cursor table.
+* **NEXT** - is used to fetch data in forward direction from cursor table.
+* **PRIOR** - is used to fetch data in backward direction from cursor table.
+* **ABSOLUTE** - n is used to fetch the exact nth row from cursor table.
+* **RELATIVE** - n is used to fetch the data in incremental way as well as decremental way.
+
+```sql
+FETCH FIRST FROM s1
+FETCH LAST FROM s1
+FETCH NEXT FROM s1
+FETCH PRIOR FROM s1
+FETCH ABSOLUTE 7 FROM s1
+FETCH RELATIVE -2 FROM s1
+```
+
+**4. Close cursor connection:**
+
+```sql
+--- CLOSE cursor_name
+CLOSE s1
+```
+
+**5. Deallocate cursor memory:**
+
+```sql
+--- DEALLOCATE cursor_name
+DEALLOCATE s1
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. When is the Explicit Cursor Used?
+
+## # 22. SQL Stored Procedures
+
+<br/>
+
+## Q. Why stored procedures are called as executable code?
+
+Stored procedure stored inside the database. This also includes the executable code that usually collects and customizes the operations like insert, encapsulation, etc. These stored procedures are used as APIs for simplicity and security purposes. The implementation of it allows the developers to have procedural extensions to the standard SQL syntax. Stored procedure doesn'\t come as a part of relational database model, but can be included in many implementations commercially.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What are the advantages of using Stored Procedures?
+
+- Procedure can reduce network traffic and latency, and can enhance application performance.
+- Procedure execution plans can be reused, staying cached in the management tool's memory, reducing its overhead.
+- Procedures provide the benefit of code reuse.
+- The logic can be encapsulated using procedures and can help to change procedure's code without interacting to application.
+- Procedures give more security to our data.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is stored procedure in SQL?
+
+Stored Procedures are created to perform one or more DML operations on Database. It is nothing but the group of SQL statements that accepts some input in the form of parameters and performs some task and may or may not returns a value.
+
+**Syntax:**
+
+```sql
+CREATE or REPLACE PROCEDURE name(parameters)
+IS
+variables;
+BEGIN
+//statements;
+END;
+```
+
+**Example:**
+
+```sql
+CREATE PROCEDURE SelectAllCustomers
+AS
+SELECT * FROM Customers
+GO;
+```
+
+Execute the stored procedure above as follows:
+
+```sql
+EXEC SelectAllCustomers;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is Stored Routine in SQL?
+
+A stored routine is a set of SQL statements that are stored on the database server and can be used by any client 
+with permission to use them. This provides a number of benefits. 
+
+1. Database operations are normalized so various applications will operate uniformly, even when written in different 
+   languages and operating on different platforms.
+2. Stored routines are easy to maintain, because they're all in one place rather than distributed among different applications.
+3. Traffic is reduced between the client and server, because data is processed on the server.
+4. security is enhanced by allowing clients to run with reduced permissions while still being able to perform necessary
+database operations.
+
+There are two different kinds of stored routines.
+
+a) Stored functions return a value, and are used in the context of an expression.
+b) Stored procedures are called separately, using the call statement, and may return result sets or set variables. 
+
+**Example 01:** Stored Functions
+
+```sql
+DROP FUNCTION IF EXISTS track_len;
+
+CREATE FUNCTION track_len(seconds INT)
+RETURNS VARCHAR(16) DETERMINISTIC
+    RETURN CONCAT_WS(':', seconds DIV 60, LPAD(seconds MOD 60, 2, '0' ));
+
+SELECT title, track_len(duration) FROM track;
+
+SELECT a.artist AS artist,
+    a.title AS album,
+    t.title AS track,
+    t.track_number AS trackno,
+    track_len(t.duration) AS length
+  FROM track AS t
+  JOIN album AS a
+    ON a.id = t.album_id
+  ORDER BY artist, album, trackno
+;
+```
+
+**Example 02:** Stored Procedures
+
+```sql
+DROP PROCEDURE IF EXISTS list_albums;
+
+DELIMITER //
+CREATE PROCEDURE list_albums ()
+BEGIN
+    SELECT * FROM album;
+END
+//
+
+DELIMITER ;
+CALL list_albums();
+```
+
+**Example 03:** Stored Procedures with parameter
+
+```sql
+DROP PROCEDURE IF EXISTS list_albums;
+
+DELIMITER //
+CREATE PROCEDURE list_albums (a VARCHAR(255))
+  BEGIN
+    SELECT a.artist AS artist,
+        a.title AS album,
+        t.title AS track,
+        t.track_number AS trackno,
+        track_len(t.duration) AS length
+      FROM track AS t
+      JOIN album AS a
+        ON a.id = t.album_id
+      WHERE a.artist LIKE a
+      ORDER BY artist, album, trackno
+    ;
+  END //
+
+DELIMITER ;
+CALL list_albums('%hendrix%');
+```
+
+**Example 04:** Drop Stored Procedures & Stored Functions
+
+```sql
+DROP FUNCTION IF EXISTS track_len;
+DROP PROCEDURE IF EXISTS total_duration;
+```
+
+#### Q. What is the difference between Stored Procedure and User Defined Function?
+#### Q. How can you raise custom errors from stored procedure?
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
