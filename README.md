@@ -1613,3 +1613,126 @@ DROP PROCEDURE IF EXISTS total_duration;
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
+
+## # 23. Miscellaneous
+
+<br/>
+
+## Q. How do you find third highest salary
+
+```sql
+SELECT * from employees order by salary limit 2,1;
+```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is the STUFF function and how does it differ from the REPLACE function?
+
+- Using STUFF function we can overwrite the specified characters of a string.
+The syntax of STUFF function is:
+STUFF (stringToChange, startIndex, length, new_characters )
+
+where stringToChange is the string which will have the characters those we want to overwrite, startIndex is the starting position, length is the number of characters in the string that are to be overwrited, and new_characters are the new characters to write into the string.
+
+- While REPLACE function is used to replace specified character at all its existing occurrences.
+- The syntax of REPLACE function is REPLACE (string_to_change, string_to_Replace, new_tring).
+- Every occurrence of string_to_change will be replaced by new_string.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What is RANK function?
+
+- RANK function can be used to give a rank to each row returned from a SELECT statment.
+- For using this function first specify the function name, followed by the empty parentheses.
+- Then mention the OVER function. For this function, you have to pass an ORDER BY clause as an argument. The clause identifies the column on which you are going to apply the RANK function.
+
+For Example:
+SELECT RANK() OVER(ORDER BY BirthDate DESC) AS [RowNumber], FirstName, BirthDate FROM EmpDetails
+- In the result you will see that the eldest employee got the first rank and the youngest employee got the last rank. Here the rows with equal age will get same ranks.
+- The rank depends on the row's position in the result set, but not on the sequential number of the row.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What are the reasons of poor performance of query?
+
+Following are the reasons for the poor performance of a query:
+
+* No indexes.
+* Excess recompilations of stored procedures.
+* Procedures and triggers without SET NOCOUNT ON.
+* Poorly written query with unnecessarily complicated joins.
+* Highly normalized database design.
+* Excess usage of cursors and temporary tables.
+* Queries with predicates that use comparison operators between different columns of the same table.
+* Queries with predicates that use operators, and any one of the following are true:
+* There are no statistics on the columns involved on either side of the operators.
+* The distribution of values in the statistics is not uniform, but the query seeks a highly selective value set. This situation can be especially true if the operator is anything other than the equality (=) operator.
+* The predicate uses the not equal to (!=) comparison operator or the NOT logical operator.
+* Queries that use any of the SQL Server built-in functions or a scalar-valued, user-defined function whose argument is not a constant value.
+* Queries that involve joining columns through arithmetic or string concatenation operators.
+* Queries that compare variables whose values are not known when the query is compiled and optimized.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+## Q. What are the MySQL Engines?
+
+**1. InnoDB:**
+
+The default storage engine in MySQL 8.0. InnoDB is a transaction-safe (ACID compliant) storage engine for MySQL
+that has commit, rollback, and crash-recovery capabilities to protect user data. InnoDB row-level locking
+(without escalation to coarser granularity locks) and Oracle-style consistent nonlocking reads increase multi-user 
+concurrency and performance. InnoDB stores user data in clustered indexes to reduce I/O for common queries based on primary keys.
+
+To maintain data integrity, InnoDB also supports FOREIGN KEY referential-integrity constraints. 
+
+**2. MyISAM:**
+
+These tables have a small footprint. Table-level locking limits the performance in read/write workloads, so it is often used in read-only or read-mostly workloads in Web and data warehousing configurations.
+
+**3. Memory:**
+
+Stores all data in RAM, for fast access in environments that require quick lookups of non-critical data. This engine 
+was formerly known as the HEAP engine. Its use cases are decreasing; InnoDB with its buffer pool memory area provides a 
+general-purpose and durable way to keep most or all data in memory, and NDBCLUSTER provides fast key-value lookups for huge distributed data sets.
+
+**4. CSV:**
+
+Its tables are really text files with comma-separated values. CSV tables let you import or dump data in CSV format, to exchange data with scripts and applications that read and write that same format. Because CSV tables are not indexed, you typically keep the data in InnoDB tables during normal operation, and only use CSV tables during the import or export stage.
+
+**5. Archive:**
+
+These compact, unindexed tables are intended for storing and retrieving large amounts of seldom-referenced historical, archived, or security audit information.
+
+**6. Blackhole:**
+
+The Blackhole storage engine accepts but does not store data, similar to the Unix /dev/null device. Queries always return an empty set. These tables can be used in replication configurations where DML statements are sent to slave servers, but the master server does not keep its own copy of the data.
+
+**7. NDB:**
+
+This clustered database engine is particularly suited for applications that require the highest possible degree 
+of uptime and availability.
+
+**8. Merge:**
+
+Enables a MySQL DBA or developer to logically group a series of identical MyISAM tables and reference them as one object. Good for VLDB environments such as data warehousing.
+
+**9. Federated:**
+
+Offers the ability to link separate MySQL servers to create one logical database from many physical servers. Very good for distributed or data mart environments.
+
+**10. Example:**
+
+This engine serves as an example in the MySQL source code that illustrates how to begin writing new storage engines. 
+It is primarily of interest to developers. The storage engine is a “stub” that does nothing. You can create tables with this engine, but no data can be stored in them or retrieved from them.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
