@@ -1741,15 +1741,130 @@ It is primarily of interest to developers. The storage engine is a “stub” th
 
  To find unique (non-repeated) values in a column (i.e., values that appear only once), you can use the GROUP BY clause with HAVING COUNT(*) = 1.
 
-- Sample Query
+### Sample Query
+
+Suppose you have a table named students with a column name, and you want to find names that appear only once:
+
 ```sql
 SELECT name
 FROM students
 GROUP BY name
 HAVING COUNT(*) = 1;
 ```
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
 #### Q. How to test performance of database?
+
+Testing the performance of a database involves assessing how efficiently it handles operations like queries, inserts, updates, and deletes under various loads. Here's how you can do it:
+
+**🔹 1. Use Performance Testing Tools**
+- Apache JMeter – For simulating multiple users and running SQL queries.
+
+- Sysbench – For benchmarking MySQL/PostgreSQL.
+
+- SQL Server Profiler – For SQL Server performance tracing.
+
+- pgBadger / pgBench – For PostgreSQL performance analysis.
+
+- MySQL Enterprise Monitor – For MySQL monitoring.
+
+**🔹 2. Run Benchmark Queries**
+
+Use queries that represent your real-world workload and measure:
+
+- Execution time
+
+- CPU usage
+
+- Disk I/O
+
+- Memory usage
+
+```sql
+SET STATISTICS TIME ON;
+SELECT * FROM orders WHERE amount > 1000;
+SET STATISTICS TIME OFF;
+```
+**🔹 3. Use EXPLAIN or EXPLAIN ANALYZE**
+
+To understand query plans and optimize them:
+
+```sql
+EXPLAIN SELECT * FROM orders WHERE amount > 1000;
+```
+
+**🔹 4. Monitor Key Metrics**
+
+- Query response time
+
+- Transactions per second (TPS)
+
+- Throughput
+
+- Deadlocks / Slow queries
+
+- Cache hit ratio
+
+**🔹 5. Load Testing**
+Simulate concurrent users performing operations to evaluate how the DB performs under stress.
+
+**🔹 6. Index and Query Optimization**
+
+Check if indexes are used and queries are efficient.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
 #### Q. What is SQL Profiler?
+
+SQL Profiler is a graphical tool provided by Microsoft SQL Server that allows you to monitor, trace, and analyze database activities in real-time.
+
+**🔹 Key Features of SQL Profiler:**
+
+- Tracks T-SQL queries and stored procedures.
+
+- Monitors login/logout activity.
+
+- Identifies long-running or slow queries.
+
+- Helps in performance tuning and debugging.
+
+- Logs events like deadlocks, locks, and transactions.
+
+**🔍 Use Cases:**
+
+- Performance tuning: Find queries that consume high CPU or run slowly.
+
+- Troubleshooting: Detect problematic SQL commands or errors.
+
+- Audit and security: Track user activities and access patterns.
+
+- Optimization: Understand which indexes or queries need improvement.
+
+**🧾 Example:**
+
+You can use SQL Profiler to capture all queries being executed on the server during peak traffic and identify:
+
+```
+Event: SQL:BatchCompleted
+Duration: 12000 ms
+Text: SELECT * FROM orders WHERE amount > 1000;
+```
+
+**🛠️ Note:**
+
+- SQL Profiler is deprecated in newer versions of SQL Server.
+
+- Microsoft recommends using Extended Events for better performance and lower overhead.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
 #### Q. How to get @@ERROR and @@ROWCOUNT at the same time?
 #### Q. Explain about buffer cash and log Cache in SQL Server?
 
