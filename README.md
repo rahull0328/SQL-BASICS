@@ -1736,3 +1736,23 @@ It is primarily of interest to developers. The storage engine is a “stub” th
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
+
+#### Q. How to find the unique values if the value in the column is repeated?
+
+ To find unique (non-repeated) values in a column (i.e., values that appear only once), you can use the GROUP BY clause with HAVING COUNT(*) = 1.
+
+- Sample Query
+```sql
+SELECT name
+FROM students
+GROUP BY name
+HAVING COUNT(*) = 1;
+```
+#### Q. How to test performance of database?
+#### Q. What is SQL Profiler?
+#### Q. How to get @@ERROR and @@ROWCOUNT at the same time?
+#### Q. Explain about buffer cash and log Cache in SQL Server?
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
