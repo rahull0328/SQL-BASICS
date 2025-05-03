@@ -1866,7 +1866,157 @@ Text: SELECT * FROM orders WHERE amount > 1000;
 </div>
 
 #### Q. How to get @@ERROR and @@ROWCOUNT at the same time?
-#### Q. Explain about buffer cash and log Cache in SQL Server?
+
+In SQL Server, @@ERROR and @@ROWCOUNT are two system functions that provide information about the success and outcome of the last executed SQL statement. If you want to capture both at the same time, you have to store their values immediately after the statement you are evaluating, because executing another SQL statement will overwrite these values.
+
+**🔍 Understanding @@ERROR and @@ROWCOUNT**
+
+| Function     | Description                                                                                                     |
+| ------------ | --------------------------------------------------------------------------------------------------------------- |
+| `@@ERROR`    | Returns the **error number** of the last executed SQL statement. If the statement was successful, it returns 0. |
+| `@@ROWCOUNT` | Returns the **number of rows affected** by the last SQL statement.                                              |
+
+**❗ Important Note**
+
+Both @@ERROR and @@ROWCOUNT must be captured right after the SQL statement you’re checking, otherwise their values will change.
+
+**Example: Correct Way to Get Both @@ERROR and @@ROWCOUNT**
+
+```sql
+DECLARE @Error INT, @RowCount INT;
+
+-- Execute a statement (example: update)
+UPDATE Employees
+SET Salary = Salary + 1000
+WHERE Department = 'IT';
+
+-- Immediately capture the values
+SET @Error = @@ERROR;
+SET @RowCount = @@ROWCOUNT;
+
+-- Now you can use these values safely
+IF @Error <> 0
+BEGIN
+    PRINT 'An error occurred. Error code: ' + CAST(@Error AS VARCHAR);
+END
+ELSE
+BEGIN
+    PRINT 'No error. Rows affected: ' + CAST(@RowCount AS VARCHAR);
+END
+```
+
+**⚠️ What Happens If You Don't Store Immediately?**
+
+```sql
+-- Bad Example
+UPDATE Employees
+SET Salary = Salary + 1000
+WHERE Department = 'IT';
+
+-- Let's say you do something else now
+SELECT * FROM Employees;
+
+-- Now you try to capture error and rowcount
+SET @Error = @@ERROR;      -- captures for SELECT, not UPDATE
+SET @RowCount = @@ROWCOUNT;-- captures for SELECT, not UPDATE
+```
+
+In this case, both @@ERROR and @@ROWCOUNT reflect the result of SELECT, not the UPDATE, which makes your error handling unreliable.
+
+**🧠 Summary**
+
+- To get @@ERROR and @@ROWCOUNT together safely:
+
+- Execute your SQL statement.
+
+- Immediately assign @@ERROR and @@ROWCOUNT to local variables.
+
+- Use those variables for further logic or error handling.
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
+#### Q. Explain about buffer Cache and log Cache in SQL Server?
+
+In SQL Server, Buffer Cache and Log Cache are essential components of the SQL Server Memory Architecture, designed to optimize performance by reducing direct disk I/O operations.
+
+**🔵 1. Buffer Cache (Buffer Pool)**
+
+**✅ Definition:**
+
+-  The Buffer Cache (also called Buffer Pool) is the memory area where SQL Server stores pages of data read from database files (MDF/NDF). These are typically 8 KB pages.
+
+**📌 Purpose:**
+
+- To reduce physical disk I/O by keeping frequently accessed data in memory.
+- Acts like a temporary memory storage for data pages.
+
+**🧱 What is stored in the Buffer Cache?**
+
+- Data Pages (from tables)
+
+- Index Pages
+
+- Catalog metadata
+
+- Execution plans
+
+- Work tables
+
+**🔁 Read/Write Behavior:**
+
+- When a query is executed, SQL Server checks the Buffer Cache to see if the required data page is already in memory.
+
+- If found → Read from cache (faster).
+
+- If not → Read from disk and store in cache.
+
+- Modified data pages are called dirty pages.
+
+- These are written to disk asynchronously by the Checkpoint or Lazy Writer process.
+
+**🔴 2. Log Cache**
+
+**✅ Definition:**
+
+- The Log Cache is a memory area used to temporarily store transaction log records before they are written to the transaction log file (LDF).
+
+**📌 Purpose:**
+- To improve performance of write operations by batching log writes.
+
+- Ensures write-ahead logging (WAL) — the log record is written before the actual data page is written to disk.
+
+**🔁 Behavior:**
+
+- When a transaction (like INSERT/UPDATE/DELETE) occurs:
+
+- A log record is created and stored in the Log Cache.
+
+- These records are flushed to the disk (LDF file) when:
+
+- The transaction is committed (COMMIT).
+
+- The log cache is full.
+
+- A checkpoint occurs.
+
+- SQL Server guarantees durability through this mechanism.
+
+### ⚖️ Buffer Cache vs. Log Cache
+
+| Feature      | Buffer Cache                   | Log Cache                             |
+| ------------ | ------------------------------ | ------------------------------------- |
+| Stores       | Data and index pages           | Transaction log records               |
+| Purpose      | Fast data retrieval and writes | Fast and reliable transaction logging |
+| Persistence  | Pages flushed asynchronously   | Logs flushed on commit or flush event |
+| Related file | Data file (.mdf, .ndf)         | Log file (.ldf)                       |
+
+**🔍 Why are they important?**
+
+- Buffer Cache improves query performance by reducing disk reads.
+
+- Log Cache ensures transaction durability and speed, crucial for recovery and rollback.
 
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
