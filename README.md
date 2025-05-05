@@ -1608,6 +1608,97 @@ DROP PROCEDURE IF EXISTS total_duration;
 ```
 
 #### Q. What is the difference between Stored Procedure and User Defined Function?
+
+Stored Procedures and User Defined Functions (UDFs) are both database objects used in SQL to encapsulate a set of SQL statements for reuse. However, they serve different purposes and have several fundamental differences. Let's explore them in detail:
+
+**🔹 1. Definition & Purpose**
+
+| Feature | **Stored Procedure**                                                                                                   | **User Defined Function (UDF)**                                                                                 |
+| ------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Purpose | Used to perform actions like modifying data (INSERT, UPDATE, DELETE), calling other procedures, managing transactions. | Used to return a value or result set based on input parameters — often used for calculations or data retrieval. |
+| Type    | Procedural programming object.                                                                                         | Deterministic programming object (usually returns value(s) only).                                               |
+
+**🔹 2. Return Type**
+
+| Feature      | **Stored Procedure**                                                               | **User Defined Function**                                                                                                    |
+| ------------ | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Return Value | Can return **0 or more result sets**, **output parameters**, and **status codes**. | Must **return a single value** (scalar function) or a **table** (table-valued function). Cannot return multiple result sets. |
+
+**🔹 3. Usage in SQL Statements**
+
+| Feature             | **Stored Procedure**                                                 | **User Defined Function**                                                         |
+| ------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Use in SELECT/WHERE | **Cannot** be used directly in `SELECT`, `WHERE`, or `JOIN` clauses. | **Can** be used directly inside SQL statements like `SELECT`, `WHERE`, or `JOIN`. |
+| Example             | `EXEC GetCustomerDetails`                                            | `SELECT dbo.GetDiscount(100)`                                                     |
+
+**🔹 4. Side Effects (Data Modification)**
+
+| Feature                                   | **Stored Procedure** | **User Defined Function**                                                                |
+| ----------------------------------------- | -------------------- | ---------------------------------------------------------------------------------------- |
+| Can modify data (INSERT, UPDATE, DELETE)? | ✅ Yes                | ❌ No (only for scalar functions; table-valued UDFs can **read** but not **modify** data) |
+
+
+**🔹 5. Transactions**
+
+| Feature              | **Stored Procedure**                                                                | **User Defined Function**                                   |
+| -------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Transactions Support | Can handle and manage transactions using `BEGIN TRANSACTION`, `COMMIT`, `ROLLBACK`. | Cannot handle transactions. No transaction control allowed. |
+
+**🔹 6. Error Handling**
+
+| Feature        | **Stored Procedure**                                    | **User Defined Function**                             |
+| -------------- | ------------------------------------------------------- | ----------------------------------------------------- |
+| Error Handling | Supports `TRY...CATCH` blocks and can use `RAISEERROR`. | Limited or **no** advanced error handling mechanisms. |
+
+
+**🔹 7. Performance**
+
+| Feature     | **Stored Procedure**                                                | **User Defined Function**                                                                |
+| ----------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Performance | More flexible and efficient for batch processing and complex logic. | Suitable for quick computations and small logic. Can have performance issues if misused. |
+
+**🔹 8. Example**
+
+- 🧾 Stored Procedure:
+
+```sql
+CREATE PROCEDURE GetEmployeeById
+    @EmpId INT
+AS
+BEGIN
+    SELECT * FROM Employees WHERE EmployeeId = @EmpId;
+END;
+```
+
+- 🧮 User Defined Function (Scalar):
+
+```sql
+CREATE FUNCTION GetEmployeeSalary(@EmpId INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Salary INT;
+    SELECT @Salary = Salary FROM Employees WHERE EmployeeId = @EmpId;
+    RETURN @Salary;
+END;
+```
+
+**✅ Summary Table:**
+
+| Feature                           | Stored Procedure   | User Defined Function      |
+| --------------------------------- | ------------------ | -------------------------- |
+| Returns multiple values?          | ✅ Yes              | ❌ No (except table-valued) |
+| Modifies data?                    | ✅ Yes              | ❌ No                       |
+| Used in SELECT/WHERE?             | ❌ No               | ✅ Yes                      |
+| Handles Transactions?             | ✅ Yes              | ❌ No                       |
+| Supports Error Handling?          | ✅ Yes              | ❌ Limited                  |
+| Calls other procedures/functions? | ✅ Yes              | ❌ Not recommended          |
+| Use Case                          | Complex operations | Reusable computations      |
+
+<div align="right">
+    <b><a href="#table-of-contents">↥ back to top</a></b>
+</div>
+
 #### Q. How can you raise custom errors from stored procedure?
 
 <div align="right">
