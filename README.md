@@ -1701,6 +1701,84 @@ END;
 
 #### Q. How can you raise custom errors from stored procedure?
 
+**✅ Raising Custom Errors from a Stored Procedure in SQL Server**
+
+In SQL Server, you can raise custom errors from a stored procedure using the RAISERROR statement (for older versions) or THROW (introduced in SQL Server 2012 and preferred for modern code).
+
+**🔹 1. Using RAISERROR**
+
+```sql
+RAISERROR (message_string, severity, state);
+```
+
+- message_string: Custom error message (max 4000 chars).
+
+- severity: Number from 0 to 25 (>=11 generates an error).
+
+- state: Any integer from 0 to 255 (used to identify the location in code).
+
+**💡 Example:**
+
+```sql
+CREATE PROCEDURE CheckAge
+    @Age INT
+AS
+BEGIN
+    IF @Age < 18
+    BEGIN
+        RAISERROR('Age must be 18 or above.', 16, 1);
+        RETURN;
+    END
+
+    PRINT 'Access granted.';
+END;
+```
+
+**🔹 2. Using THROW (SQL Server 2012+)**
+
+```sql
+THROW [error_number, message, state];
+```
+
+**💡 Example:**
+
+```sql
+CREATE PROCEDURE CheckBalance
+    @Balance INT
+AS
+BEGIN
+    IF @Balance < 0
+    BEGIN
+        THROW 50001, 'Balance cannot be negative.', 1;
+    END
+
+    PRINT 'Balance is valid.';
+END;
+```
+- 50001: Custom error number (must be >= 50000 for user-defined errors).
+
+- THROW automatically includes error severity (16) and can be caught in TRY...CATCH.
+
+**🔹 3. Using TRY...CATCH with THROW**
+
+```sql
+BEGIN TRY
+    -- Some risky operation
+    IF NOT EXISTS (SELECT * FROM Users WHERE UserId = 1)
+        THROW 50002, 'User not found.', 1;
+END TRY
+BEGIN CATCH
+    PRINT 'Error occurred:';
+    PRINT ERROR_MESSAGE();  -- Retrieves the thrown error
+END CATCH
+```
+
+**🧠 When to Use:**
+
+- Use RAISERROR for backward compatibility.
+
+- Use THROW for cleaner, modern syntax and when re-throwing caught exceptions.
+
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
