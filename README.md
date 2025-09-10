@@ -198,6 +198,29 @@ There are many relational operators that are used to perform actions on relation
 3. Difference operator provide the output by taking two relations and producing the difference of rows from first that don'\t exist in second.
 4. Cartesian product is done on two relations. It acts as a cross join operator.
 
+## Q. What is the difference between SQL and NoSQL databases?
+
+SQL databases are relational databases that use structured query language (SQL) for defining and manipulating data. They are based on a fixed schema and are best for complex queries and transactions. NoSQL databases are non-relational and can handle unstructured data, offering flexibility in schema design. They are designed for scalability and are often used for big data applications.
+
+**Examples:**
+
+- SQL: MySQL, PostgreSQL
+
+- NoSQL: MongoDB, Cassandra
+
+## Q. What are the main components of a SQL query?
+
+A SQL query typically consists of clauses such as SELECT (to specify columns), FROM (to specify tables), WHERE (to filter rows), GROUP BY (to group data), HAVING (to filter groups), and ORDER BY (to sort results). These components work together to retrieve and manipulate data from a database.
+
+**Example:**
+
+```sql
+SELECT name, age
+FROM users
+WHERE age > 18
+ORDER BY name;
+```
+
 <div align="right">
     <b><a href="#table-of-contents">↥ back to top</a></b>
 </div>
